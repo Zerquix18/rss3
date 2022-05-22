@@ -1,12 +1,17 @@
+import { Route, Routes } from "react-router";
 import Layout from "./components/Layout";
 import UserProvider from "./providers/User";
+
+import Profile from './pages/Profile';
 
 function App() {
   return (
     <div>
       <UserProvider>
         <Layout>
-          a
+          <Routes>
+            <Route path="/u/:id" element={<Profile />}/>
+          </Routes>
         </Layout>
       </UserProvider>
     </div>

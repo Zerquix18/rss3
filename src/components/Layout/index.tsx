@@ -10,13 +10,14 @@ function Layout({ children }: LayoutProps) {
   const { authenticate, address } = useUser();
 
   useEffect(() => void authenticate(), [authenticate]);
+
   return (
     <div>
       <Navbar color="success">
         <Container>
           <Navbar.Brand>
             <Navbar.Item href="#">
-              <Heading size={3}>R3</Heading>
+              <Heading size={3}>T3</Heading>
             </Navbar.Item>
             <Navbar.Burger />
           </Navbar.Brand>
@@ -25,7 +26,7 @@ function Layout({ children }: LayoutProps) {
           </Navbar.Container>
         </Container>
       </Navbar>
-      <Container>
+      <Container style={{ paddingTop: 30 }}>
         { children }
       </Container>
     </div>
