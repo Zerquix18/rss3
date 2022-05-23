@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router";
 import Layout from "./components/Layout";
 import UserProvider from "./providers/User";
 
-import Profile from './pages/Profile';
+import * as Pages from './pages';
 
 function App() {
   return (
@@ -10,7 +10,8 @@ function App() {
       <UserProvider>
         <Layout>
           <Routes>
-            <Route path="/u/:id" element={<Profile />}/>
+            <Route path="/u/:id" element={<Pages.Profile />}/>
+            <Route path="/" element={<Pages.Home />}/>
           </Routes>
         </Layout>
       </UserProvider>

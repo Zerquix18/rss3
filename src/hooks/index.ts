@@ -24,11 +24,18 @@ export const useUser = () => {
       const sign = async (data: any) => await signer.signMessage(data);
   
       const rss3 = new RSS3({ endpoint: RSS3_ENDPOINT_URL, address, sign });
-      dispatch({ type: 'set_rss3', rss3, address });
+      const profileInfo = await rss3.profile.get(address);
+
+      const profile = {
+        address,
+        name: profileInfo.name,
+        avatar: 'https://infura-ipfs.io/ipfs/QmcK8FSTtLQVydLEDKLv1hEacLxZgi7j2i4mkQQMyKxv6k',
+      };
+      dispatch({ type: 'set_rss3', rss3, profile });
     } catch (e) {
       console.log(e);
     }
-  }, []);
+  }, [dispatch]);
 
   return { ...state, authenticate };
 };

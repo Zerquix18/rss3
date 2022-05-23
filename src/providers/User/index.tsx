@@ -15,7 +15,7 @@ interface UserProviderProps {
 const rss3 = new RSS3({ endpoint: RSS3_ENDPOINT_URL });
 
 export function UserProvider({ children }: UserProviderProps) {
-  const [state, dispatch] = useReducer(reducer, { rss3, address: null });
+  const [state, dispatch] = useReducer(reducer, { rss3, profile: null });
 
   return (
     <UserContext.Provider value={{ state, dispatch }}>
