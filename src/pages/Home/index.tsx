@@ -11,6 +11,7 @@ function Home() {
       <Columns.Column size="three-quarters">
         <Box>
           <NewPost />
+          <hr />
           { profile && <Feed /> }
         </Box>
       </Columns.Column>

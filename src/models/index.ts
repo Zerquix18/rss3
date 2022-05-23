@@ -12,3 +12,8 @@ export interface ICurrentUser {
   rss3: RSS3;
   profile: Profile | null;
 }
+
+export interface APIResponse {
+  success: boolean;
+  response: string;
+}
