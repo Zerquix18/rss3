@@ -11,6 +11,7 @@ function App() {
         <Layout>
           <Routes>
             <Route path="/u/:id" element={<Pages.Profile />}/>
+            <Route path="/my-account" element={<Pages.Account />}/>
             <Route path="/" element={<Pages.Home />}/>
           </Routes>
         </Layout>

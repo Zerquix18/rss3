@@ -6,6 +6,7 @@ export interface Profile {
   name: string | undefined;
   address: string;
   avatar: string;
+  bio: string;
 }
 
 export interface ICurrentUser {

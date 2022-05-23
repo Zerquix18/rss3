@@ -26,7 +26,8 @@ export const useUser = () => {
       const rss3 = new RSS3({ endpoint: RSS3_ENDPOINT_URL, address, sign });
       const profileInfo = await rss3.profile.get(address);
 
-      const name = profileInfo.name;
+      const name = profileInfo.name || '';
+      const bio = profileInfo.bio || '';
       let avatar = 'https://infura-ipfs.io/ipfs/QmcK8FSTtLQVydLEDKLv1hEacLxZgi7j2i4mkQQMyKxv6k';
       
       if (profileInfo.avatar && profileInfo.avatar.length > 0) {
@@ -36,12 +37,17 @@ export const useUser = () => {
         }
       }
 
-      const profile = { address, name, avatar };
+      const profile = { address, name, bio, avatar };
       dispatch({ type: 'set_rss3', rss3, profile });
     } catch (e) {
       console.log(e);
     }
   }, [dispatch]);
 
-  return { ...state, authenticate };
+  const logout = useCallback(() => {
+    const rss3 = new RSS3({ endpoint: RSS3_ENDPOINT_URL });
+    dispatch({ type: 'set_rss3', rss3, profile: null });
+  }, [dispatch]);
+
+  return { ...state, authenticate, logout };
 };
