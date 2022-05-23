@@ -26,11 +26,17 @@ export const useUser = () => {
       const rss3 = new RSS3({ endpoint: RSS3_ENDPOINT_URL, address, sign });
       const profileInfo = await rss3.profile.get(address);
 
-      const profile = {
-        address,
-        name: profileInfo.name,
-        avatar: 'https://infura-ipfs.io/ipfs/QmcK8FSTtLQVydLEDKLv1hEacLxZgi7j2i4mkQQMyKxv6k',
-      };
+      const name = profileInfo.name;
+      let avatar = 'https://infura-ipfs.io/ipfs/QmcK8FSTtLQVydLEDKLv1hEacLxZgi7j2i4mkQQMyKxv6k';
+      
+      if (profileInfo.avatar && profileInfo.avatar.length > 0) {
+        const first = profileInfo.avatar[0] as string;
+        if (first.startsWith('ipfs')) {
+          avatar = 'https://infura-ipfs.io/ipfs/' + first.replace('ipfs://', '');
+        }
+      }
+
+      const profile = { address, name, avatar };
       dispatch({ type: 'set_rss3', rss3, profile });
     } catch (e) {
       console.log(e);
