@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 import { useUser } from "../../../hooks";
 import { RSS3Item } from "../../../models";
+import FeedItem from "./FeedItem";
 
 function Feed() {
   const { rss3, profile } = useUser();
   const [, setLoading] = useState(false);
-  const [, setItems] = useState<RSS3Item[]>([]);
+  const [items, setItems] = useState<RSS3Item[]>([]);
 
   if (! profile) {
     throw new Error('log in!');
@@ -28,7 +29,7 @@ function Feed() {
 
   return (
     <div>
-      I am the feed
+      { items.map(item => <FeedItem key={item.id} item={item} />)}
     </div>
   );
 }
