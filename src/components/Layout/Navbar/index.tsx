@@ -1,4 +1,4 @@
-import { Button, Container, Dropdown, Heading, Icon, Navbar, Tag } from "react-bulma-components";
+import { Button, Container, Dropdown, Heading, Icon, Navbar } from "react-bulma-components";
 import { useNavigate } from "react-router";
 import { useUser } from "../../../hooks";
 
