@@ -4,6 +4,7 @@ import RSS3 from "rss3";
 
 import { UserContext } from "../providers/User";
 import { RSS3_ENDPOINT_URL } from "../constants";
+import { getProfile } from "../utils";
 
 declare var window: any;
 
@@ -26,18 +27,7 @@ export const useUser = () => {
       const rss3 = new RSS3({ endpoint: RSS3_ENDPOINT_URL, address, sign });
       const profileInfo = await rss3.profile.get(address);
 
-      const name = profileInfo.name || '';
-      const bio = profileInfo.bio || '';
-      let avatar = 'https://infura-ipfs.io/ipfs/QmcK8FSTtLQVydLEDKLv1hEacLxZgi7j2i4mkQQMyKxv6k';
-      
-      if (profileInfo.avatar && profileInfo.avatar.length > 0) {
-        const first = profileInfo.avatar[0] as string;
-        if (first.startsWith('ipfs')) {
-          avatar = 'https://infura-ipfs.io/ipfs/' + first.replace('ipfs://', '');
-        }
-      }
-
-      const profile = { address, name, bio, avatar };
+      const profile = getProfile(address, profileInfo);
       dispatch({ type: 'set_rss3', rss3, profile });
     } catch (e) {
       console.log(e);

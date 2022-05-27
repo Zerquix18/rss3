@@ -7,6 +7,7 @@ export interface Profile {
   address: string;
   avatar: string;
   bio: string;
+  url: string;
 }
 
 export interface ICurrentUser {

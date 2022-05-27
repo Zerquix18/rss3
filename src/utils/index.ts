@@ -1,3 +1,5 @@
+import { Profile } from "../models";
+
 export function parseBio(bio: string) {
   const actualBio = bio.replace(/<[A-Z]+#.*>/g, '');
   let url = '';
@@ -12,4 +14,23 @@ export function parseBio(bio: string) {
   }
 
   return { actualBio, url };
+}
+
+export function getProfile(address: string, profileInfo: any) {
+  const bioInfo = parseBio(profileInfo.bio);
+
+  const { url } = bioInfo;
+  const name = profileInfo.name || '';
+  const bio = bioInfo.actualBio || '';
+  let avatar = 'https://infura-ipfs.io/ipfs/QmcK8FSTtLQVydLEDKLv1hEacLxZgi7j2i4mkQQMyKxv6k';
+  
+  if (profileInfo.avatar && profileInfo.avatar.length > 0) {
+    const first = profileInfo.avatar[0] as string;
+    if (first.startsWith('ipfs')) {
+      avatar = 'https://infura-ipfs.io/ipfs/' + first.replace('ipfs://', '');
+    }
+  }
+
+  const profile: Profile = { address, name, bio, url, avatar };
+  return profile;
 }

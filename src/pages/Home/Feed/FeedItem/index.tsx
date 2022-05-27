@@ -9,7 +9,7 @@ interface FeedItemProps {
 function FeedItem({ item }: FeedItemProps) {
   const { profile } = useUser();
   if (! profile) {
-    throw new Error('')
+    throw new Error('');
   }
 
   return (
@@ -17,7 +17,7 @@ function FeedItem({ item }: FeedItemProps) {
       <Card.Content>
         <Media>
           <Media.Item renderAs="figure" align="left">
-            <Image size={64} alt="64x64" src={profile.avatar} />
+            <Image rounded size={48} alt="48x48" src={profile.avatar} />
           </Media.Item>
           <Media.Item>
             <Heading size={4}>{ profile.name }</Heading>
