@@ -1,13 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
 import { Block, Box, Columns, Content, Heading, Image, Progress, Tag } from "react-bulma-components";
 import { useParams } from "react-router";
+import Feed from "../../components/Feed";
 import { useUser } from "../../hooks";
-import { Profile as ProfileType, RSS3Item } from "../../models";
+import { LocalRSS3Item, Profile as ProfileType, RSS3Item } from "../../models";
 import { getProfile } from "../../utils";
 
 type RetrievedProfile = {
   details: ProfileType;
-  list: RSS3Item[];
+  list: LocalRSS3Item[];
 }
 
 function Profile() {
@@ -25,10 +26,12 @@ function Profile() {
       setLoading(true);
 
       const profileInfo = await rss3.profile.get(id);
-      const list = await rss3.items.custom.getList(id);
+      const list = (await rss3.items.custom.getList(id)) as RSS3Item[];
       const details = getProfile(id, profileInfo);
 
-      setProfile({ details, list });
+      const localItems: LocalRSS3Item[] = list.map(item => ({ ...item, profile: details }));
+
+      setProfile({ details, list: localItems });
     } catch (e) {
       console.log(e);
     } finally {
@@ -65,7 +68,7 @@ function Profile() {
 
       <hr />
 
-      
+      <Feed items={profile.list} />
     </Box>
   );
 }
