@@ -37,7 +37,7 @@ function Profile() {
     } finally {
       setLoading(false);
     }
-  }, [id]);
+  }, [id, rss3]);
 
   useEffect(() => void fetchProfile(), [fetchProfile]);
 
